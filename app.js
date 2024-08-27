@@ -1,49 +1,54 @@
-/* 
-2. Funkcja powieszania napisu + brake point
-3. Funkcja zmniejszania napisu +brake point
-4. Funkscja zmiany koloru
+const convBtn = document.querySelector(".conv");
+const resetBtn = document.querySelector(".reset");
+const changeBtn = document.querySelector(".change");
+const converter = document.querySelector("#converter");
+const result = document.querySelector(".result");
+const one = document.querySelector(".one");
+const two = document.querySelector(".two");
 
-*/
+let fahrenheit;
+let celsius;
 
-const sizeUp = document.querySelector(".sizeUp");
-const sizeDown = document.querySelector(".sizeDown");
-const colorBtn = document.querySelector(".color");
-const text = document.querySelector(".text");
-const childElement = text.firstElementChild;
-const sizeUpp = () => {
-  if (childElement) {
-    let currentSize = parseInt(window.getComputedStyle(childElement).fontSize);
+const change = () => {
+  if (one.textContent.includes("°C")) {
+    one.textContent = "°F";
+    two.textContent = "°C";
+  } else {
+    one.textContent = "°C";
+    two.textContent = "°F";
+  }
+  result.textContent = "";
+};
 
-    if (currentSize <= 48) {
-      childElement.style.fontSize = currentSize + 5 + "px";
+const celsiusToFahrenheit = () => {
+  fahrenheit = converter.value * 1.8 + 32;
+  result.textContent = `${converter.value}°C to ${fahrenheit.toFixed(1)}°F`;
+  converter.value = "";
+};
+
+const fahrenheitToCelsius = () => {
+  celsius = (converter.value - 32) / 1.8;
+  result.textContent = `${converter.value}°F to ${celsius.toFixed(1)}°C`;
+  converter.value = "";
+};
+
+const conversion = () => {
+  if (converter.value !== "") {
+    if (one.textContent.includes("°C")) {
+      celsiusToFahrenheit();
+    } else {
+      fahrenheitToCelsius();
     }
+  } else {
+    result.textContent = "Podaj wartość";
   }
 };
 
-const sizeMin = () => {
-  if (childElement) {
-    let currentSize = parseInt(window.getComputedStyle(childElement).fontSize);
-
-    if (currentSize >= 12) {
-      childElement.style.fontSize = currentSize - 5 + "px";
-    }
-  }
+const restart = () => {
+  result.textContent = "";
+  converter.value = "";
 };
 
-function getRandomColor() {
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
-  return `rgb(${r}, ${g}, ${b})`;
-}
-
-function changeTextColor() {
-  if (childElement) {
-    const randomColor = getRandomColor();
-    childElement.style.color = randomColor;
-  }
-}
-
-sizeUp.addEventListener("click", sizeUpp);
-sizeDown.addEventListener("click", sizeMin);
-colorBtn.addEventListener("click", changeTextColor);
+changeBtn.addEventListener("click", change);
+convBtn.addEventListener("click", conversion);
+resetBtn.addEventListener("click", restart);

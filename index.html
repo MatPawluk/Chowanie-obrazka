@@ -11,13 +11,17 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="buttons">
-      <button class="sizeUp">+</button>
-      <button class="sizeDown">-</button>
-      <button class="color">color</button>
-    </div>
-    <div class="text">
-      <p>Lorem ipsum dolor sit amet.</p>
+    <label for="converter"
+      >Konwerter <span class="one">°C</span> na
+      <span class="two">°F</span></label
+    >
+    <input type="number" id="converter" placeholder="Wpisz liczbę..." />
+    <p class="result"></p>
+
+    <div>
+      <button class="conv">Konwertuj</button>
+      <button class="reset">Reset</button>
+      <button class="change">Zamień</button>
     </div>
     <script src="./app.js"></script>
   </body>
